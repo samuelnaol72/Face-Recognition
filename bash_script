@@ -1,0 +1,11 @@
+######### Pre-Training bash script, vggface2 is in data2 folder
+python ./trainEmbedNet.py --model ResNet18 --trainfunc angleproto --save_path exps/exp24 --nPerClass 3 --train_path data2/train --lr 0.01 --nClass 3000 --batch_size 100 --mixedprec --gpu 0
+
+
+##### Training using pretrained weight when the pretrained weight is in exps/exp24
+python ./trainEmbedNet.py --model ResNet18 --trainfunc angleproto --save_path exps/exp37 --optimizer sgd --initial_model exps/exp24/model000000050.model --nPerClass 3 --train_path data/train --lr 0.01 --nClass 1230 --batch_size 150 --mixedprec --gpu 0
+
+##Evaluation script (using test_set, where the test set is in data3 folder and the model I am evaluating is in exps/exp36)
+
+python ./trainEmbedNet.py --initial_model exps/exp36/model000000080.model --eval --output result.csv --test_path data3/test_shuffle --test_list data3/test_blind.csv --mixedprec --gpu 0
+
